@@ -2,6 +2,25 @@ import matplotlib.pyplot as plt
 import numpy as np
 import itertools
 
+
+def generate_chart():
+    X_min = np.min(X[y!=2][:, 0])
+    X_max = np.max(X[y!=2][:, 0])
+    x = np.linspace(X_min, X_max) # primera dimension del vector
+
+    plt.figure(figsize=(5,5), dpi=150)
+    plt.scatter(X[y==0][:10, 0], X[y==0][:10, 1], s=20, label='clase 1', color='darkblue')
+    plt.scatter(X[y==1][:10, 0], X[y==1][:10, 1], s=20, label='clase 2', color='darkgreen')
+
+    recta = x*0.5 + 1.75
+    plt.plot(x, recta, 'k', label=r'H')
+    plt.fill_between(x, y1=yc+0.6, y2=yc-0.6, color='k', alpha=0.2, label='Ancho')
+
+    plt.legend(loc='lower right')
+    plt.savefig('./img/svm_0.png', format='png')
+    plt.show()
+    
+    
 def visualize_classifier(model, X, y, ax=None, cmap='rainbow'):
     ax = ax or plt.gca()
     
@@ -23,7 +42,7 @@ def visualize_classifier(model, X, y, ax=None, cmap='rainbow'):
     n_classes = len(np.unique(y))
     contours = ax.contourf(xx, yy, Z, alpha=0.3,
                            levels=np.arange(n_classes + 1) - 0.5,
-                           cmap=cmap, clim=(y.min(), y.max()),
+                           cmap=cmap,
                            zorder=1)
 
     ax.set(xlim=xlim, ylim=ylim)
