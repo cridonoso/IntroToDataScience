@@ -1,5 +1,0 @@
-Esto es un texto muy importante 
-
-Esto tambien: "000"
-
-Esto es secundario: "123"
